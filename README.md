@@ -34,11 +34,15 @@ You can load the saved model in a different environment or by other team members
  Once the model is loaded, you can use it for predictions or evaluate it on new data, just   as you would with the original model
 	3. Fine-Tune the Loaded Model 
 If you want to continue training or fine-tuning the loaded model, you can do so by compiling the model again and continuing the training process.
+
 Why Use the .keras Format?
+
 •	Portability: The .keras format is native to TensorFlow and can be easily shared across different environments and machines, ensuring compatibility.
 •	Efficiency: It saves both the model’s architecture and weights in a compact and efficient way, making it suitable for deployment and future use.
 •	Flexibility: The .keras format can be loaded and used directly for inference or further training.
+
 Explanation of the Steps:
+
 1.	Saving the Model:
 Why Save the Model? Saving the model after training allows you to preserve the learned weights, architecture, and configurations. This ensures that you don’t have to retrain the model from scratch each time you want to deploy it or make predictions, saving both time and resources.
 The .keras format is a self-contained format that stores everything in a single file, making it ideal for sharing, storing, and deploying.
@@ -55,24 +59,35 @@ Summary
 •	Loading the model: Use load_model('model_name.keras') to load the saved model into a new environment.
 •	Reuse: Once loaded, the model can be used for predictions, evaluation, or further fine-tuning.
 This process ensures that your model can be easily transferred and reused, making it suitable for deployment in production systems or sharing with team members for collaboration.
+
 DEPLOYING A STREAMLIT APPLICATION
+
 Creating a Streamlit application that allows farmers to upload images of beans and get predictions on the presence of diseases can be done using the trained model.
 We'll create a simple Streamlit application where the user can upload an image, and the model will classify it into one of the three classes: angular_leaf_spot, bean_rust, or healthy.
+
 How the Streamlit Application Works:
+
 1.	Upload Image: The user uploads an image file via the st.file_uploader() widget. The file type is restricted to .jpg, .png, and .jpeg.
 2.	Preprocess the Image: The uploaded image is resized to 224x224 pixels because MobileNet requires this input size. The image is converted into a NumPy array, normalized to a range of [0, 1], and reshaped to add a batch dimension, which is required for model input.
 3.	Make Prediction: The pre-processed image is passed to the trained model for prediction. The model outputs a set of probabilities for each class, and we use np.argmax() to find the class with the highest probability. The predicted class and its corresponding confidence score (percentage) are displayed.
 4.	Display Predictions: The application shows the predicted class label and confidence score. Optionally, it also displays the probabilities for all the classes to give more detailed information about the model’s confidence.
+
 Key Components
+
 file_uploader: Allows users to upload an image.
+
 Image.open: Used to open the uploaded image file.
+
 predict(): Uses the trained model to make predictions based on the uploaded image.
+
 To Run the Application:
+
 1.	Save the above code into a Python script file, for example, bean_disease_classifier.py.
 2.	In the same directory, make sure you have the saved model file (my_bean_disease_classifier.keras).
 3.	In the terminal, navigate to the directory where the script is saved and run:
 4.	bash
 5.	Copy code
 6.	streamlit run bean_disease_classifier.py
-7.	This will launch the Streamlit app in your browser, allowing you to upload an image and get predictions.
+   
+This will launch the Streamlit app in your browser, allowing you to upload an image and get predictions.
 This Streamlit application makes it easy for farmers or agricultural experts to use machine learning to diagnose bean leaf diseases based on image input.
